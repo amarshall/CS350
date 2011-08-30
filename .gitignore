@@ -1,1 +1,4 @@
 *.o
+
+# Binaries
+Lab0/fib
