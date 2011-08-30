@@ -3,8 +3,19 @@
 #include "fib.h"
 
 int main(int argc, char** argv) {
-  int result = fib(atoi(argv[1]));
-  printf("%d\n", result);
+  int error = 0;
+  if(argc < 2) {
+    printf("%s\n", "Value required.");
+    error = 1;
+  } else {
+    int number = atoi(argv[1]);
+    if(number > 0) {
+      printf("%d\n", fib(number));
+    } else {
+      printf("%s\n", "Input must be one or greater.");
+      error = 1;
+    }
+  }
 
-  return 0;
+  return error;
 }
