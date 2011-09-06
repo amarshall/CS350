@@ -1,4 +1,4 @@
-CC=gcc -Wall
+CC=cc -Wall -std=c99
 BINARY=outputsaver
 
 all: $(BINARY)
