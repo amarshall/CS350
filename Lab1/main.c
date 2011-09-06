@@ -6,7 +6,7 @@
 
 int main(int argc, char** argv) {
   if(argc < 3) {
-    printf("%s\n", "Invalid arguments");
+    printf("Invalid arguments\n");
   } else {
     char* command = argv[1];
     char* outputFile = argv[2];
@@ -15,14 +15,12 @@ int main(int argc, char** argv) {
 
     if(pid > 0) {
 
-      printf("%s\n", "Parent!");
       int childStatus;
       waitpid(pid, &childStatus, 0);
       return childStatus != 0;
 
     } else if(pid == 0) {
 
-      printf("%s\n", "Child!");
       int file = open(outputFile, O_WRONLY | O_CREAT, 0644);
       if(file == -1) { perror("Could not open file!"); return 1; }
       if(dup2(file, 1) == -1) { perror("Could not duplicate descriptor!"); return 1; }
