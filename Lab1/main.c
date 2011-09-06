@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 
     } else if(pid == 0) {
 
-      int file = open(outputFile, O_WRONLY | O_CREAT, 0644);
+      int file = open(outputFile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
       if(file == -1) { perror("Could not open file!"); return 1; }
       if(dup2(file, 1) == -1) { perror("Could not duplicate descriptor!"); return 1; }
       if(execlp(command, command, (char*)NULL)) { perror("Could not run command!"); return 1; }
