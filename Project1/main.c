@@ -1,17 +1,18 @@
-#include <stdio.h>
 #include <stdlib.h>
 
+#include "dispatch.h"
 #include "io.h"
 
 void run() {
-  char** tokens;
+  char** tokens = NULL;
+  int tokensLength;
   do {
-    tokens = readLine();
-  } while(1);
+    free(tokens);
+    tokens = readLine(&tokensLength);
+  } while(dispatch(tokens, tokensLength));
 }
 
 int main(int argc, char** argv) {
   run();
-
   return 0;
 };
