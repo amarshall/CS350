@@ -1,17 +1,10 @@
 CC=gcc -std=c99 -Wall -g
 
 BINARY=cs350sh
+C_FILES=main.c io.c dispatch.c
 
-all: $(BINARY)
-
-$(BINARY): main.o io.o
-	$(CC) main.o io.o -o $(BINARY)
-
-main.c:
-	$(CC) main.c
-
-io.c: io.h
-	$(CC) io.c
+all: $(C_FILES)
+	$(CC) $(C_FILES) -o $(BINARY)
 
 clean:
-	rm -rf *.o $(BINARY)
+	rm -rf *.o *.dSYM $(BINARY)
