@@ -26,7 +26,7 @@ char** readLine(int* tokensLength) {
       tokensMaxLength *= 2;
       tokens = (char**)realloc(tokens, tokensMaxLength * sizeof(char*));
     }
-    tokens[*tokensLength] = strdup(token);
+    tokens[*tokensLength] = token;
   }
   tokens[*tokensLength + 1] = NULL;
 
