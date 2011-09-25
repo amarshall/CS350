@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 bool dispatch(char** tokens, const int tokensLength) {
+  if(tokens[0] == NULL) return true;
   if(*tokens[0] == EOF || strcmp(tokens[0], "exit") == 0) return false;
 
   bool runInBackground = false;
