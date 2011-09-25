@@ -28,7 +28,7 @@ char** readLine(int* tokensLength) {
     }
     tokens[*tokensLength] = token;
   }
-  tokens[*tokensLength + 1] = NULL;
+  tokens[*tokensLength] = NULL;
 
   free(input);
 
