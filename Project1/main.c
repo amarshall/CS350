@@ -21,6 +21,10 @@ void run() {
     background = runInBackground(tokens, &tokensLength);
     outputFile = findOutputFile(tokens, &tokensLength);
   } while(dispatch(tokens, tokensLength, background, outputFile));
+
+  for(int i = 0; i < tokensLength; i++) free(tokens[i]);
+  free(tokens);
+  free(outputFile);
 }
 
 int main(int argc, char** argv) {
