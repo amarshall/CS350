@@ -6,10 +6,11 @@
 
 void run() {
   char** tokens = NULL;
-  int tokensLength;
+  int tokensLength = 0;
   do {
+    if(tokensLength != 0 || tokens == NULL) printf("cs350sh> ");
+    for(int i = 0; i < tokensLength; i++) free(tokens[i]);
     free(tokens);
-    printf("cs350sh> ");
     tokens = readLine(&tokensLength);
   } while(dispatch(tokens, tokensLength));
 }
