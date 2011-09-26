@@ -5,6 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+bool runInBackground(char** tokens, int* tokensLength) {
+  if(!(*tokensLength == 0) && strcmp(tokens[*tokensLength - 1], "&") == 0) {
+    (*tokensLength)--;
+    free(tokens[*tokensLength]);
+    tokens[*tokensLength] = NULL;
+    return true;
+  } else {
+    return false;
+  }
+}
+
 char** readLine(int* tokensLength) {
   char** tokens = (char**)malloc(4 * sizeof(char*));
   *tokensLength = 0;
