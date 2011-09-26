@@ -3,6 +3,6 @@
 
 #include <stdbool.h>
 
-bool dispatch(char**, const int, bool);
+bool dispatch(char**, const int, bool, char*);
 
 #endif

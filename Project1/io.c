@@ -16,6 +16,27 @@ bool runInBackground(char** tokens, int* tokensLength) {
   }
 }
 
+char* findOutputFile(char** tokens, int* tokensLength) {
+  return fileRedirect(tokens, tokensLength, ">");
+}
+
+char* fileRedirect(char** tokens, int* tokensLength, char* search) {
+  if(tokensLength == 0) return NULL;
+  char* fileRedirect = NULL;
+  for(int i = 1; i < *tokensLength; i++) {
+    if(strcmp(tokens[i], search) == 0) {
+      free(tokens[i]);
+      fileRedirect = tokens[i + 1];
+      *tokensLength -= 2;
+      for(int j = i; j <= *tokensLength; j++) {
+        tokens[j] = tokens[j + 2];
+      }
+      break;
+    }
+  }
+  return fileRedirect;
+}
+
 char** readLine(int* tokensLength) {
   char** tokens = (char**)malloc(4 * sizeof(char*));
   *tokensLength = 0;
