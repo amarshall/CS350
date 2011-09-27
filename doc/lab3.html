@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Lab 3, 28 Sept 2010, Shared memory</title>
+    </head>
+    <body>
+		 
+<h1>Lab 3 - Simplex Chat (Shared memory)</h1> 
+<p> 
+Write a client/server program "Simplex Chat", which takes one argument.
+If argument is 's' it acts as a server, if 'c' as a client.<br>
+Server creates shared memory region.<br>
+Client attaches to it.<br>
+For this lab it is ok if key is hardcoded.<br>
+Shared memory region consists of flag field and message field.
+</p>
+<p>
+Client reads lines from keyboard directly to message part of shared memory and
+ sets flag to tell server that there is new message.
+</p>
+<p>
+Server spinlocks and waits for flag to be set.
+When it is set it prints contents of message region on the screen.
+</p>
+<h3>Functions to use:</h3>
+<ul>
+	<li>int shmget(key_t key, size_t size, int shmflg);</li>
+	<li>void * shmat(int shmid, const void *shmaddr, int shmflg);</li>
+	<li>int shmdt(const void *shmaddr);</li>
+	<li>int shmctl(int shmid, int cmd, struct shmid_ds *buf);</li>
+</ul>
+
+<h2> Bonus </h2>
+<p>
+	Make duplex chat.
+</p>
+<ul>
+<li><a href = "http://www.cs.binghamton.edu/~kartik/cs350/examples/shm_create.c">http://www.cs.binghamton.edu/~kartik/cs350/examples/shm_create.c</a></li>
+<li><a href = "http://www.cs.binghamton.edu/~kartik/cs350/examples/shm_attach.c">http://www.cs.binghamton.edu/~kartik/cs350/examples/shm_attach.c</a></li>
+<li><a href = "http://www.cs.binghamton.edu/~kartik/cs350/examples/shm_delete.c">http://www.cs.binghamton.edu/~kartik/cs350/examples/shm_delete.c</a></li>
+</ul>
+    </body>
+</html>
