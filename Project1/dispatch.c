@@ -35,7 +35,6 @@ bool dispatch(char** tokens, const int tokensLength, bool runInBackground, char*
         FILE* input = fopen(inputFile, "r");
         char buffer[64];
         while(fgets(buffer, 64, input) != NULL) {
-          fprintf(stderr, "READ: %s", buffer);
           write(pipes[1], buffer, strlen(buffer));
         }
         close(pipes[1]);
