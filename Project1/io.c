@@ -49,7 +49,6 @@ char** readLine(int* tokensLength) {
   char c;
 
   do {
-    c = '\0';
     char* token = (char*)malloc(8);
     int tokenMaxLength = 8;
     int tokenLength = 0;
