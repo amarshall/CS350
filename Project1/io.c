@@ -16,6 +16,10 @@ bool runInBackground(char** tokens, int* tokensLength) {
   }
 }
 
+char* findInputFile(char** tokens, int* tokensLength) {
+  return fileRedirect(tokens, tokensLength, "<");
+}
+
 char* findOutputFile(char** tokens, int* tokensLength) {
   return fileRedirect(tokens, tokensLength, ">");
 }

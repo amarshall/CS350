@@ -8,6 +8,7 @@ void run() {
   char** tokens = NULL;
   int tokensLength = 0;
   bool background;
+  char* inputFile = NULL;
   char* outputFile = NULL;
 
   do {
@@ -15,15 +16,18 @@ void run() {
 
     for(int i = 0; i < tokensLength; i++) free(tokens[i]);
     free(tokens);
+    free(inputFile);
     free(outputFile);
 
     tokens = readLine(&tokensLength);
     background = runInBackground(tokens, &tokensLength);
+    inputFile = findInputFile(tokens, &tokensLength);
     outputFile = findOutputFile(tokens, &tokensLength);
-  } while(dispatch(tokens, tokensLength, background, outputFile));
+  } while(dispatch(tokens, tokensLength, background, inputFile, outputFile));
 
   for(int i = 0; i < tokensLength; i++) free(tokens[i]);
   free(tokens);
+  free(inputFile);
   free(outputFile);
 }
 

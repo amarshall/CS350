@@ -5,6 +5,7 @@
 
 bool runInBackground(char**, int*);
 char* fileRedirect(char**, int*, char*);
+char* findInputFile(char**, int*);
 char* findOutputFile(char**, int*);
 char** readLine(int*);
 void printToStdout();
