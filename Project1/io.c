@@ -39,40 +39,34 @@ char* fileRedirect(char** tokens, int* tokensLength, char* search) {
 
 char** readLine(int* tokensLength) {
   char** tokens = (char**)malloc(4 * sizeof(char*));
-  *tokensLength = 0;
   int tokensMaxLength = 4;
+  *tokensLength = 0;
 
-  char* token = (char*)malloc(8);
-  int tokenLength = 0;
-  int tokenMaxLength = 8;
+  char c;
 
-  while(true) {
-    char c = getchar();
-    if(c == -1) return tokens;
+  do {
+    c = '\0';
+    char* token = (char*)malloc(8);
+    int tokenMaxLength = 8;
+    int tokenLength = 0;
 
-    if(c == ' ' || c == '\n') {
-      if(*tokensLength == tokensMaxLength - 1) {
-        tokensMaxLength *= 2;
-        tokens = (char**)realloc(tokens, tokensMaxLength * sizeof(char*));
-      }
+    if(*tokensLength == tokensMaxLength - 1) {
+      tokensMaxLength *= 2;
+      tokens = (char**)realloc(tokens, tokensMaxLength * sizeof(char*));
+    }
 
-      token[tokenLength] = '\0';
-      tokens[(*tokensLength)++] = token;
-
-      if(c == '\n') break;
-
-      token = (char*)malloc(8);
-      tokenMaxLength = 8;
-      tokenLength = 0;
-    } else {
+    for(c = getchar(); c != ' ' && c != '\n'; c = getchar()) {
+      if(c == -1) return tokens;
       if(tokenLength == tokenMaxLength - 1) {
         tokenMaxLength *= 2;
         token = (char*)realloc(token, tokenMaxLength);
       }
-
       token[tokenLength++] = c;
     }
-  }
+    token[tokenLength] = '\0';
+
+    if(tokenLength != 0) tokens[(*tokensLength)++] = token;
+  } while(c != '\n');
 
   tokens[*tokensLength] = NULL;
 

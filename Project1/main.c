@@ -11,7 +11,7 @@ void run() {
   char* outputFile = NULL;
 
   do {
-    if(tokensLength != 0 || tokens == NULL) printf("cs350sh> ");
+    printf("cs350sh> ");
 
     for(int i = 0; i < tokensLength; i++) free(tokens[i]);
     free(tokens);
