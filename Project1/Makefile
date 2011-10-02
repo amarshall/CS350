@@ -1,4 +1,4 @@
-CC=gcc -std=c99 -Wall -g -pedantic-errors
+CC=gcc -std=c99 -Wall -O -pedantic-errors
 
 BINARY=cs350sh
 C_FILES=main.c io.c dispatch.c
