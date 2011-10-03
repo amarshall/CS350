@@ -1,0 +1,307 @@
+<html> 
+<head> 
+  <title>CS350 - Assignment 1</title> 
+</head> 
+<body> 
+
+<h1>CS350 : Assignment 1</h1>
+
+<h3> Due September 30 </h3>
+
+
+<p>
+<a href=#description>[Description]</a>
+<a href=#donots>[Do Nots]</a>
+<a href=#hints>[Hints]</a>
+<a href=#gg>[Grading Guideline]</a>
+</p>
+
+
+<a name=description>
+<h2> Description</h2>
+</a>
+
+<p>This assignment helps you learn about 
+processes and basic process management in a shell.
+You are asked to write a simple shell program called <tt>cs350sh</tt>.
+This shell must work as follows. You start the shell by typing 
+<tt>cs350sh</tt> at the prompt.
+This will give a prompt of your shell as follows:
+
+<pre>
+cs350sh>
+</pre>
+
+From here onwards, you should be able to execute and control 
+<b>any program/command</b> just as you
+would in a normal shell. 
+For instance 
+
+<pre>
+cs350sh> ls
+
+[ OUTPUT OF ls COMMAND SHOWN HERE ]
+
+cs350sh>
+</pre>
+
+
+<p>
+Additionally, your shell should be able to do the following: 
+</p>
+
+<ol> 
+
+	<li>
+		Execute commands with multiple arguments. For example:
+		<pre>
+		cs350sh> Command arg1 arg2 arg3
+		</pre>
+	</li>
+
+	<li>
+		Execute commands in either foreground or background mode. In foreground mode, the shell just waits for the command to complete before displaying the shell prompt again (as in the above example). In background mode, a command is executed with an ampersand <tt>&</tt> suffix. The shell prompt appears immediately after typing a command name (say Command1) and shell becomes ready to accept and execute the next command (say Command2), even as Command1 continues executing in the <i>background</i>. For example:
+		<pre>
+		cs350sh> Command1 &
+		cs350sh> Command2
+
+		[OUTPUT OF Command1 AND Command2 MAY INTERLEAVE HERE IN ARBITRARY ORDER]
+		</pre>
+
+	</li>
+
+	<li>
+		Maintain multiple processes running in background mode simultaneously. For example:
+		<pre>
+		cs350sh> Command1 &
+		cs350sh> Command2 &
+		cs350sh> Command3 &
+		cs350sh> 
+
+		[OUTPUT OF Command1, Command2, AND Command3 MAY INTERLEAVE HERE IN ARBITRARY ORDER]
+
+		</pre>
+	</li>
+
+	<li>	
+		Redirect the input of a command from a file. For example:
+		<pre>
+		cs350sh> Command < input_file
+		</pre>
+	</li>
+
+	<li>
+		Redirect the output of a command to a file. For example:
+		<pre>
+		cs350sh> Command > output_file
+		</pre>
+	</li>
+
+	<li>
+		Be able to execute any combination of the above features.
+	</li>
+</ol>
+
+
+<a name=donots>
+<h2>Do Nots:</h2>
+</a>
+<ul> 
+	<li>
+		DO NOT use any special wrapper libraries or classes to borrow the basic functionality required in this assignment. If in doubt, ask the instructor first BEFORE doing so.
+	</li> 
+	<li>
+		DO NOT use the <b>system(...) </b> syscall to execute the programs in your shell directly.
+	</li> 
+	<li> 
+		DO NOT write five or six different programs, one for each feature. Write <b>one single program</b> that includes all the above features. 
+	</li> 
+</ul> 
+
+<a name=hints>
+<h2>Hints:</h2> 
+</a>
+
+<ul> 
+  <li>Build  and test one functionality at a time. </li> 
+  <li>Make backup copies of partially working versions of your code. This way, if you irreparably screw up your code, then you can at least roll back to your last backup copy. </li> 
+  <li>First design your data structures and code-structure before you begin coding each feature. Anticipate specific problems you will face. </li> 
+  <li>Check out man page for the following:
+    <ul> 
+	<li>fork()</li>
+	<li>execv() and execl() (which one should you use?)</li>
+	<li>waitpid()</li> 
+	<li>dup2() (for stdin/stdout redirection) </li>
+	<li>open()</li> 
+	<li>close()</li> 
+	<li>fileno()</li> 
+	<!--
+	<li> kill()</li> 
+	<li> chdir()</li> 
+	<li> getcwd()</li> 
+	<li>killpg()</li> 
+	<li>setsid()</li> 
+	<li>getgrp()</li> 
+	<li>getpgid()</li> 
+	<li>tcsetpgrp()</li> 
+	-->
+    </ul> 
+  </li> 
+</ul>
+
+<a name=gg>
+<h2> Grading Guidelines </h2>
+</a>
+
+<pre>
+	This is how we will grade your assignment during the demo. So please prioritize your work accordingly.
+
+	5 - README, Makefile, Compilation without errors
+
+	10 - Executing a command with no arguments in foreground 
+
+	10 - Executing a command with multiple arguments in foreground 
+
+	10 - Executing a single command in background
+
+	20 - Executing multiple commands in background simultaneously
+
+	10 - Input redirection: Executing a single command that takes standard input (stdin) from a file
+
+	10 - Output redirection: Executing a single command that sends standard output (stdout) to a file
+
+	40 - Combinations
+		10 - Executing a background command with multiple arguments 
+		10 - Executing a background command with redirected stdin/stdout
+		10 - Executing a command with multiple arguments and redirected stdin/stdout
+		10 - Executing one command in foreground and one or more commands in background
+		
+	20 - Explaining the code during demo.
+
+	5 - Error Handling
+		Most important part here is to make sure that you check and handle the errors 
+		returned by ALL systems calls used in your program. Also check for other common 
+		error conditions in your program. But don't go overboard with error checking. 
+		We will not try to intentionally break your code with bad input that's irrelevant 
+		to the assignment's goals.
+
+	Total = 140
+
+</pre>
+
+
+
+
+
+<!--
+  <li>Know the difference between <b>SIGSTOP </b>and <b>SIGTSTP</b>. Which one
+    should you use?</li> 
+   -->
+<!--
+
+<ul>
+  <li><span style="font-weight: bold;">'cd' </span>command must
+actually change the directory of your shell and <span 
+ style="font-weight: bold;">'pwd' </span>must return the current
+directory of your shell. Note that normal <span 
+ style="font-weight: bold;">'fork-exec' </span>mechanism won't work
+here. Why?<br> 
+  </li> 
+  <li>Terminate a process by pressing <span style="font-weight: bold;">&lt;Ctrl-C&gt;.
+    </span>Your shell must not get killed, only the process running
+inside your shell must terminate.</li> 
+  <li>Temporarily stop a process using <span style="font-weight: bold;">&lt;Ctrl-Z&gt;.
+    </span>Your shell must not stop, only the process running inside
+your shell must stop. Your shell must be able to hold multiple
+processes in stopped state.<br> 
+  </li> 
+  <li>Background a process using the <span style="font-weight: bold;">'bg'</span>
+directive. Your shell must be able to hold multiple
+processes running in background.<br> 
+  </li> 
+  <li>Kill a stopped process or a process in background using the <span 
+ style="font-weight: bold;">'kill'</span> directive.</li> 
+  <li>Any signal should be delivered to the entire <i><b>process-group</b> </i>of
+    the immediate child process, not just to the immediate child process. For
+    example, if <b>cs350sh </b>starts process A and process A forks another process
+    B, then any signal should be delivered to both process A and process B. How
+    will you do this? For this you need to understand the notion of a <b><i>process
+    group</i>. </b>Check out the man pages for <b>setsid()</b> and <b>killpg()</b>.</li> 
+  <li>Bring a process to foreground using the <span 
+ style="font-weight: bold;">'fg' </span>directive. The <span 
+ style="font-weight: bold;">'fg'</span> directive must be able to bring
+any stopped/backgrounded process to foreground using the <span 
+ style="font-weight: bold;">"%N" </span>argument<span 
+ style="font-weight: bold;">.</span></li> 
+  <li>Be able to <span style="font-weight: bold;">pipe</span> the
+output of one process to the input of another process. For instance <span 
+ style="font-weight: bold;">'ls -l | grep foo | less'.</span>
+Your shell must be able to handle pipelines that are at least 10 commands long (though ideally it should be any arbitrary length).</li> 
+  <li>Be able to redirect the output of a process (or a pipeline) to a
+file. For example <span style="font-weight: bold;">'ls -l | grep
+foo &gt; some_file'.</span><br> 
+  </li> 
+  <li>Be able to receive input for a process from a file. For
+example <span style="font-weight: bold;">'cat &lt; some_file'.</span></li> 
+  <li>Be able to combine the two operations. For example <span 
+ style="font-weight: bold;">'cat &lt; some_file &gt; some_other_file'<br> 
+    </span></li> 
+  <li><span style="font-weight: bold;"><span style="font-weight: bold;">'exit'
+    </span></span>directive should terminate your shell. Take
+care to avoid <span style="font-weight: bold;">'orphan'</span> 
+processes.<br> 
+  </li> 
+  <li>You <span style="font-weight: bold;">do not</span> need to
+implement any scripting functionalities.<br> 
+  </li> 
+  <li>You <b>do not</b> need to implement wild character expansions such as *,?,[0-9], etc.<br></li> 
+</ul> 
+  <p><b>Ten Bonus points:</b></p> 
+  <ul> 
+    <li><i><b>Correctly</b></i> handle both standard input and standard output
+      from programs executed by cs350sh. Inputs and outputs should be handled
+      correctly especially when backgrounding and foregrounding a command.
+      Its not as simple as it seems. Why?</li> 
+  </ul> 
+-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</ul> 
+</body> 
+</html> 

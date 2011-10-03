@@ -1,0 +1,9 @@
+CS350 Shell
+@author J. Andrew Marshall <jmarsha6@binghamton.edu>
+
+Default binary name is "cs350sh".
+
+Type "exit" to exit the shell.
+
+As is consistant with sh, an ampersand at the end of the command causes it to be backgrounded.
+Continuing with consistancy with sh, '>' is for output redirection, and '<' is for input redirection.
