@@ -24,13 +24,13 @@ char* findOutputFile(char** tokens, int* tokensLength) {
   return fileRedirect(tokens, tokensLength, ">");
 }
 
-char* fileRedirect(char** tokens, int* tokensLength, char* search) {
+char* fileRedirect(char** tokens, int* tokensLength, const char* search) {
   if(tokensLength == 0) return NULL;
-  char* fileRedirect = NULL;
+  char* filename = NULL;
   for(int i = 1; i < *tokensLength; i++) {
     if(strcmp(tokens[i], search) == 0) {
       free(tokens[i]);
-      fileRedirect = tokens[i + 1];
+      filename = tokens[i + 1];
       *tokensLength -= 2;
       for(int j = i; j <= *tokensLength; j++) {
         tokens[j] = tokens[j + 2];
@@ -38,7 +38,7 @@ char* fileRedirect(char** tokens, int* tokensLength, char* search) {
       break;
     }
   }
-  return fileRedirect;
+  return filename;
 }
 
 char** readLine(int* tokensLength) {

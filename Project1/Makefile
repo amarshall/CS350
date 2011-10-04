@@ -1,21 +1,23 @@
-CC=gcc -std=c99 -Wall -O -pedantic-errors
-
+CC=gcc
+CFLAGS=-std=c99 -Wall -Wextra -Werror -Wformat=2 -Wfloat-equal -Wshadow -Wwrite-strings -Winit-self -Wmissing-declarations -pedantic-errors # -Winline -Wpadded
 BINARY=cs350sh
-O_FILES=io.o dispatch.o main.o
+SRC_FILES=io.c dispatch.c main.c
+.PHONY: clean
+
+RELEASE ?= 0
+ifeq ($(RELEASE), 1)
+    CFLAGS+=-O2
+else
+    CFLAGS+=-g
+endif
 
 all: $(BINARY)
-	
-$(BINARY): $(O_FILES)
-	$(CC) $(O_FILES) -o $(BINARY)
 
-main.o: main.c
-	$(CC) -c main.c
+$(BINARY): $(SRC_FILES:%.c=%.o)
+	$(CC) $(LDFLAGS) $^ -o $@
 
-dispatch.o: dispatch.c dispatch.h
-	$(CC) -c dispatch.c
-
-io.o: io.c io.h
-	$(CC) -c io.c
+%.o: %.c %.h
+	@$(CC) $(CFLAGS) -c $<
 
 clean:
 	rm -rf *.o *.dSYM $(BINARY)

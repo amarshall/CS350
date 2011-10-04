@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void run();
+
 void run() {
   char** tokens = NULL;
   int tokensLength = 0;
@@ -31,7 +33,7 @@ void run() {
   free(outputFile);
 }
 
-int main(int argc, char** argv) {
+int main() {
   run();
   return 0;
 }
