@@ -14,9 +14,12 @@ endif
 all: $(BINARY)
 
 $(BINARY): $(SRC_FILES:%.c=%.o)
-	$(CC) $(LDFLAGS) $^ -o $@
+	@$(CC) $(LDFLAGS) $^ -o $@
 
 %.o: %.c %.h
+	@$(CC) $(CFLAGS) -c $<
+
+%.o: %.c
 	@$(CC) $(CFLAGS) -c $<
 
 clean:
