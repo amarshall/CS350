@@ -1,10 +1,23 @@
-CC=gcc -std=c99 -Wall -pedantic-errors
+CC=gcc
+CFLAGS=-std=c99 -Wall -Wextra -Werror -Wformat=2 -Wfloat-equal -Wshadow -Wwrite-strings -Winit-self -Wmissing-declarations -pedantic-errors
 BINARY=chat
+SRC_FILES=main.c
+.PHONY: clean
 
-all: chat
+RELEASE ?= 0
+ifeq ($(RELEASE), 1)
+    CFLAGS+=-O2
+else
+    CFLAGS+=-O -g
+endif
 
-chat: main.c
-	$(CC) main.c -o $(BINARY)
+all: $(BINARY)
+
+$(BINARY): $(SRC_FILES:%.c=%.o)
+	@$(CC) $(LDFLAGS) $^ -o $@
+
+%.o: %.c %.h
+	@$(CC) $(CFLAGS) -c $<
 
 clean:
 	rm -rf *.o $(BINARY)
