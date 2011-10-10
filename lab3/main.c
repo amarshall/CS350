@@ -48,7 +48,7 @@ void runClient(key_t key) {
 }
 
 int main(int argc, char** argv) {
-  key_t key = 3141596;
+  key_t key = ftok("chat", 3141596);
 
   if(argc != 2) {
     fprintf(stderr, "Invalid arguments.");
