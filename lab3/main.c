@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/shm.h>
 #include <unistd.h>
@@ -17,24 +18,24 @@ typedef struct {
 
 void runServer(key_t key) {
   int shmId = shmget(key, SHM_SIZE, 0664 | IPC_CREAT);
-  if(shmId == -1) perror("shmid");
+  if(shmId == -1) { perror("shmid"); exit(1); }
 
   Data* data = shmat(shmId, NULL, 0);
-  if(data == (Data*)-1) perror("shmdata");
+  if(data == (Data*)-1) { perror("shmdata"); exit(1); }
 
   data->ready = false;
   while(!data->ready) sleep(1);
   printf("%s\n", data->string);
 
-  shmctl(shmId, IPC_RMID, NULL);
+  if(shmctl(shmId, IPC_RMID, NULL) < 0) { perror("shmctl"); exit(1); }
 }
 
 void runClient(key_t key) {
   int shmId = shmget(key, SHM_SIZE, 0664);
-  if(shmId == -1) perror("shmid");
+  if(shmId == -1) { perror("shmid"); exit(1); }
 
   Data* data = shmat(shmId, NULL, 0);
-  if(data == (Data*)-1) perror("shmdata");
+  if(data == (Data*)-1) { perror("shmdata"); exit(1); }
 
   int inputLength = 0;
 
