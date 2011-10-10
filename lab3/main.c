@@ -4,16 +4,24 @@
 #include <sys/shm.h>
 #include <unistd.h>
 
+void runServer(key_t);
+void runClient(key_t);
+
+typedef struct {
+  bool ready;
+  char string[200];
+} Data;
+
 void runServer(key_t key) {
   int shmId = shmget(key, 256, 0664 | IPC_CREAT);
   if(shmId == -1) perror("shmid");
 
-  char* shmData = shmat(shmId, NULL, 0);
-  if(shmData == (char*)-1) perror("shmdata");
+  Data* data = shmat(shmId, NULL, 0);
+  if(data == (Data*)-1) perror("shmdata");
 
-  *shmData = '%';
-  while(*shmData == '%') sleep(1);
-  printf("%s\n", shmData);
+  data->ready = false;
+  while(!data->ready) sleep(1);
+  printf("%s\n", data->string);
 
   shmctl(shmId, IPC_RMID, NULL);
 }
@@ -22,17 +30,18 @@ void runClient(key_t key) {
   int shmId = shmget(key, 256, 0664);
   if(shmId == -1) perror("shmid");
 
-  char* shmData = shmat(shmId, NULL, 0);
-  if(shmData == (char*)-1) perror("shmdata");
+  Data* data = shmat(shmId, NULL, 0);
+  if(data == (Data*)-1) perror("shmdata");
 
   int inputLength = 0;
 
-  while(inputLength < 256) {
+  while(inputLength < 200) {
     char c = getchar();
     if(c == '\n') break;
-    shmData[inputLength++] = c;
+    data->string[inputLength++] = c;
   }
-  shmData[inputLength] = '\0';
+  data->string[inputLength] = '\0';
+  data->ready = true;
 }
 
 int main(int argc, char** argv) {
