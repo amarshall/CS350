@@ -4,16 +4,19 @@
 #include <sys/shm.h>
 #include <unistd.h>
 
+#define SHM_SIZE 256
+#define STRING_SIZE 200
+
 void runServer(key_t);
 void runClient(key_t);
 
 typedef struct {
   bool ready;
-  char string[200];
+  char string[STRING_SIZE];
 } Data;
 
 void runServer(key_t key) {
-  int shmId = shmget(key, 256, 0664 | IPC_CREAT);
+  int shmId = shmget(key, SHM_SIZE, 0664 | IPC_CREAT);
   if(shmId == -1) perror("shmid");
 
   Data* data = shmat(shmId, NULL, 0);
@@ -27,7 +30,7 @@ void runServer(key_t key) {
 }
 
 void runClient(key_t key) {
-  int shmId = shmget(key, 256, 0664);
+  int shmId = shmget(key, SHM_SIZE, 0664);
   if(shmId == -1) perror("shmid");
 
   Data* data = shmat(shmId, NULL, 0);
@@ -35,7 +38,7 @@ void runClient(key_t key) {
 
   int inputLength = 0;
 
-  while(inputLength < 200) {
+  while(inputLength < STRING_SIZE) {
     char c = getchar();
     if(c == '\n') break;
     data->string[inputLength++] = c;
