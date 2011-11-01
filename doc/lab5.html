@@ -1,0 +1,44 @@
+<h1>Lab 5:  Modules and /proc entries</h1>
+
+<h2> Description </h2>
+
+<p>
+Write a kernel module that creates a /proc entry <tt>/proc/hello</tt>.  When a user program tries to read <tt>/proc/hello</tt>, it receives the string "Hello World". Test whether your module works using the command
+
+<pre>
+$ cat  /proc/hello
+</pre>
+
+</p>
+
+<h2> Hints </h2>
+<ul>
+	<li>
+		Basics of writing a module can be found in lecture slides.
+	</li>
+	<li>
+		Examples of simple kernel modules can be found here: 
+		<a href=http://www.cs.binghamton.edu/~kartik/cs350/examples/module/>
+
+		http://www.cs.binghamton.edu/~kartik/cs350/examples/module/
+		</a>
+	</li>
+	<li>
+		Example of how to implement a function, which responds to
+		a read operation on a /proc entry, is in the 
+		<tt>fortune_read</tt> function here:
+		<a href=http://www.ibm.com/developerworks/linux/library/l-proc.html>
+		http://www.ibm.com/developerworks/linux/library/l-proc.html
+		</a>. Pay attention to the <tt>sprintf(...)</tt> statement and 
+		the <tt>return</tt> statement. 
+	</li>
+
+	<li>
+		Using <tt>create_proc_read_entry</tt> instead of 
+		<tt>create_proc_entry</tt> can simplify your coding for this lab.
+	</li>
+	<li>
+		If you get stuck, ask TAs for help.
+	</li>
+</ul>
+
