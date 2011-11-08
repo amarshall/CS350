@@ -1,0 +1,10 @@
+CS350 Project #2
+@author J. Andrew Marshall <jmarsha6@binghamton.edu>
+
+
+dangerlog.txt           Journal for bad code
+time-modified.c         Copy of time.c where system call is defined
+unistd_64-modified.h    Copy of unistd_64.h where system call is declared
+use_mytime.c            Userspace implementation of system call
+use_time_module.c       Userspace implementation of kernel module
+xtime_module.c          Kernel module
