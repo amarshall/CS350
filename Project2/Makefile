@@ -4,10 +4,10 @@ KERNEL_DIR?=/lib/modules/$(shell uname -r)/build
 .PHONY: clean modules modules_install
 obj-m=xtime_module.o
 
-syscall_test:
-	$(CC) use_xtime.c -o syscall_test
+syscall_test: use_mytime.c
+	$(CC) use_mytime.c -o syscall_test
 
-module_test:
+module_test: use_time_module.c
 	$(CC) use_time_module.c -o module_test
 
 modules:
