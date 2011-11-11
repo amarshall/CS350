@@ -19,4 +19,4 @@ modules_install:
 	$(MAKE) -C $(KERNEL_DIR) M=$(shell pwd) modules_install
 
 clean:
-	rm -rf syscall_test *.o *.ko *.mod.c .tmp_versions *.symvers .*.cmd *.order
+	rm -rf syscall_test module_test *.o *.ko *.mod.c .tmp_versions *.symvers .*.cmd *.order
