@@ -1,3 +1,4 @@
+#include <sys/types.h>
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -9,8 +10,10 @@ void sigtrap(int signum) {
 }
 
 int main() {
-  signal(SIGINT, sigtrap);
-  signal(SIGTSTP, sigtrap);
+  struct sigaction trap;
+  trap.sa_handler = &sigtrap;
+  sigaction(SIGINT, &trap, NULL);
+  sigaction(SIGTSTP, &trap, NULL);
 
   fprintf(stderr, "Looping forever and ever...\n");
   while(1) sleep(1);
