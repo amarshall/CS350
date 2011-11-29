@@ -24,8 +24,9 @@ int main(int argc, char** argv) {
   if(shmId == -1) { perror("shmid"); exit(1); }
   Data* data = shmat(shmId, NULL, 0);
   if(data == (Data*)-1) { perror("shmdata"); exit(1); }
-  sem_init(&data->lock, 1, 0);
-  sem_init(&data->printable, 1, 0);
+
+  if(sem_init(&data->lock, 1, 0) < 0) { perror("sem_init"); exit(1); }
+  if(sem_init(&data->printable, 1, 0) < 0) { perror("sem_init"); exit(1); }
 
   pid_t pid = fork();
   if(pid > 0) {
