@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -std=c99 -Wall -Wextra -Wformat=2 -Wfloat-equal -Wshadow -Wwrite-strings -Winit-self -pedantic-errors
+CFLAGS=-g -std=gnu99 -Wall -Wextra -Wformat=2 -Wfloat-equal -Wshadow -Wwrite-strings -Winit-self -pedantic-errors
 .PHONY: clean
 
 all: PartA PartB
