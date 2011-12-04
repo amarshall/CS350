@@ -48,9 +48,8 @@ int main(int argc, char** argv) {
   pid_t* processList = malloc(numProcesses * sizeof(pid_t));
 
   for(int i = 0; i < numProcesses; ++i) {
-    int num = (i + 1) % numProcesses;
-    int next = (num + 1) % numProcesses;
-    processList[i] = spawn(num, next);
+    int next = (i + 1) % numProcesses;
+    processList[i] = spawn(i, next);
   }
 
   for(int i = 0; i < numProcesses; ++i) {

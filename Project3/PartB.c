@@ -51,10 +51,9 @@ int main(int argc, char** argv) {
   pid_t* processList = malloc(numProcesses * sizeof(pid_t));
 
   for(int i = 0; i < numProcesses; ++i) {
-    int num = i % numProcesses;
-    int next = (num + 1) % numProcesses;
+    int next = (i + 1) % numProcesses;
     if(sem_init(&data->processLocks[i], 1, 0) < 0) { perror("sem_init"); exit(1); }
-    processList[i] = spawn(num, next);
+    processList[i] = spawn(i, next);
   }
   if(sem_post(&data->processLocks[0]) < 0) { perror("sem_post"); exit(1); };
 
