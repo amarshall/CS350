@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/shm.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 typedef struct {
@@ -13,7 +14,7 @@ Data* data;
 
 void waitForTurn(int me, int next) {
   for(int numTurns = data->numTurns; numTurns > 0; --numTurns) {
-    while(data->currentPlayer != me) usleep(1000);
+    while(data->currentPlayer != me);
     printf("Process %d: %d left\n", me, numTurns);
     data->currentPlayer = next;
   }
