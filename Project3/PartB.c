@@ -63,5 +63,7 @@ int main(int argc, char** argv) {
     printf("Process %d done.\n", processList[i]);
   }
 
+  if(shmctl(shmId, IPC_RMID, NULL) < 0) { perror("shmctl"); exit(1); }
+
   return 0;
 }
