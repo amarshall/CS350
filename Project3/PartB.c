@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/shm.h>
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -13,9 +14,16 @@ typedef struct {
 
 Data* data;
 
+struct timeval startTime;
+
 void waitForTurn(int me, int next) {
+  struct timeval curtime;
   for(int numTurns = data->numTurns; numTurns > 0; --numTurns) {
     if(sem_wait(&data->processLocks[me]) < 0) { perror("sem_wait"); exit(1); };
+
+    gettimeofday(&curtime, NULL);
+    fprintf(stderr, "%ld\n", 1000000 * (curtime.tv_sec - startTime.tv_sec) + (curtime.tv_usec - startTime.tv_usec));
+
     printf("Process %d: %d left\n", me, numTurns);
     if(sem_post(&data->processLocks[next]) < 0) { perror("sem_post"); exit(1); };
   }
@@ -38,6 +46,9 @@ int main(int argc, char** argv) {
     fprintf(stderr, "Invalid arguments.\n");
     exit(1);
   }
+  struct timeval curtime;
+  gettimeofday(&curtime, NULL);
+  startTime = curtime;
 
   int numProcesses = atoi(argv[1]);
 
@@ -63,6 +74,9 @@ int main(int argc, char** argv) {
   }
 
   if(shmctl(shmId, IPC_RMID, NULL) < 0) { perror("shmctl"); exit(1); }
+
+  gettimeofday(&curtime, NULL);
+  fprintf(stderr, "%ld\n", 1000000 * (curtime.tv_sec - startTime.tv_sec) + (curtime.tv_usec - startTime.tv_usec));
 
   return 0;
 }
