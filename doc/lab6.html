@@ -1,0 +1,18 @@
+<html>
+	<body>
+<h1>Lab 6 - Catch signals</h1>
+<p>
+Write a small program that:
+<ul>
+	<li>Busy waits on while loop</li>
+	<li>When user press Ctrl-C or Ctrl-Z, it prints out "OH NO!!!" and continue the busy wait</li>
+	
+</ul>
+Hint: write signal handlers for SIGINT (Ctrl-C) and SIGTSTP (Ctrl-Z)<br>
+For information on signal, refer to:<br>
+http://www.cs.cf.ac.uk/Dave/C/node24.html<br>
+To terminate the program, type "kill -9 [YOUR_PROCESS_ID]". This command sends SIGKILL signal which cannot be caught by your program!<br>
+It's DUE at the end of this lab<br>
+</p>
+</body>
+</html>
