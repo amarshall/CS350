@@ -74,6 +74,11 @@ char** readLine(int* tokensLength) {
     }
   } while(c != '\n' && c != EOF);
 
+  if(*tokensLength == 0 && c == EOF) {
+    free(tokens);
+    return NULL;
+  }
+
   tokens[*tokensLength] = NULL;
 
   return tokens;
