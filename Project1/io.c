@@ -59,7 +59,7 @@ char** readLine(int* tokensLength) {
     }
 
     for(c = getchar(); c != ' ' && c != '\n'; c = getchar()) {
-      if(c == -1) return tokens;
+      if(c == EOF) return tokens;
       if(tokenLength == tokenMaxLength - 1) {
         tokenMaxLength *= 2;
         token = (char*)realloc(token, tokenMaxLength);
