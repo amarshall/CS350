@@ -58,8 +58,7 @@ char** readLine(int* tokensLength) {
       tokens = (char**)realloc(tokens, tokensMaxLength * sizeof(char*));
     }
 
-    for(c = getchar(); c != ' ' && c != '\n'; c = getchar()) {
-      if(c == EOF) return tokens;
+    for(c = getchar(); c != ' ' && c != '\n' && c != EOF; c = getchar()) {
       if(tokenLength == tokenMaxLength - 1) {
         tokenMaxLength *= 2;
         token = (char*)realloc(token, tokenMaxLength);
@@ -68,8 +67,12 @@ char** readLine(int* tokensLength) {
     }
     token[tokenLength] = '\0';
 
-    if(tokenLength != 0) tokens[(*tokensLength)++] = token;
-  } while(c != '\n');
+    if(tokenLength != 0) {
+      tokens[(*tokensLength)++] = token;
+    } else {
+      free(token);
+    }
+  } while(c != '\n' && c != EOF);
 
   tokens[*tokensLength] = NULL;
 
