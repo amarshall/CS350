@@ -15,6 +15,7 @@ void run() {
 
   do {
     printf("cs350sh> ");
+    fflush(stdout);
 
     for(int i = 0; i < tokensLength; i++) free(tokens[i]);
     free(tokens);
